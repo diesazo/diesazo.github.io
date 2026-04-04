@@ -295,6 +295,7 @@
     <li><a href="javascript:void(0)" onclick="showPage('about')" id="nav-about" class="active" data-en="About" data-es="Sobre mí">About</a></li>
     <li><a href="javascript:void(0)" onclick="showPage('research')" id="nav-research" data-en="Research" data-es="Investigación">Research</a></li>
     <li><a href="javascript:void(0)" onclick="showPage('publications')" id="nav-publications" data-en="Publications" data-es="Publicaciones">Publications</a></li>
+    <li><a href="javascript:void(0)" onclick="showPage('teaching')" id="nav-teaching" data-en="Teaching" data-es="Docencia">Teaching</a></li>
     <li><a href="javascript:void(0)" onclick="showPage('media')" id="nav-media" data-en="Media" data-es="Medios">Media</a></li>
     <li><a href="javascript:void(0)" onclick="showPage('engagement')" id="nav-engagement" data-en="Public engagement" data-es="Divulgación">Public engagement</a></li>
     <li><button onclick="toggleLang()" id="lang-btn" class="lang-btn">ES</button></li>
@@ -529,7 +530,75 @@
 
 </div>
 
-<!-- MEDIA -->
+<!-- TEACHING -->
+<div id="page-teaching" class="page">
+  <h2 class="page-title" data-en="Teaching" data-es="Docencia">Teaching</h2>
+  <p class="research-blurb" id="teaching-intro" data-en="I have taught courses on political processes, political crises, international relations and political theory." data-es="He dictado cursos sobre procesos políticos, crisis políticas, relaciones internacionales y teoría política.">I have taught courses on political processes, political crises, international relations and political theory.</p>
+
+  <table class="research-exp-table" style="margin-top:2rem;">
+    <tbody>
+      <!-- PUC - institution row -->
+      <tr class="exp-row" style="border-bottom:none;">
+        <td class="exp-main" style="padding-bottom:0.25rem;">
+          <div class="exp-org" data-en="Pontificia Universidad Católica de Chile (PUC)" data-es="Pontificia Universidad Católica de Chile">Pontificia Universidad Católica de Chile (PUC)</div>
+          <div class="exp-role" data-en="Adjunct Professor, Institute of Political Science" data-es="Profesor adjunto, Instituto de Ciencia Política">Adjunct Professor, Institute of Political Science</div>
+        </td>
+        <td class="exp-meta" style="padding-bottom:0.25rem;">
+          <div class="exp-location">Santiago, CL</div>
+        </td>
+      </tr>
+      <!-- PUC - course rows -->
+      <tr style="border-bottom:none;">
+        <td style="padding:0.1rem 0 0.1rem; font-size:0.82rem; color:var(--muted);">ICP5710: Contemporary Political Crises (master's)</td>
+        <td style="padding:0.1rem 0 0.1rem; font-size:0.82rem; font-weight:500; color:var(--ink); text-align:right; white-space:nowrap;">2019, 2025</td>
+      </tr>
+      <tr class="exp-row">
+        <td style="padding:0.1rem 0 1rem; font-size:0.82rem; color:var(--muted);">ICP0106: Political Organisation of Chile (undergraduate)</td>
+        <td style="padding:0.1rem 0 1rem; font-size:0.82rem; font-weight:500; color:var(--ink); text-align:right; white-space:nowrap;">2018–2019</td>
+      </tr>
+
+      <!-- Harvard - institution row -->
+      <tr style="border-bottom:none;">
+        <td class="exp-main" style="padding-bottom:0.25rem;">
+          <div class="exp-org">Harvard University (Santiago campus)</div>
+          <div class="exp-role" data-en="Visiting Lecturer, David Rockefeller Center for Latin American Studies" data-es="Profesor invitado, David Rockefeller Center for Latin American Studies">Visiting Lecturer, David Rockefeller Center for Latin American Studies</div>
+        </td>
+        <td class="exp-meta" style="padding-bottom:0.25rem;">
+          <div class="exp-location">Santiago, CL</div>
+        </td>
+      </tr>
+      <!-- Harvard - course row -->
+      <tr class="exp-row">
+        <td style="padding:0.1rem 0 1rem; font-size:0.82rem; color:var(--muted);" data-en="Chilean Politics (undergraduate exchange programme)" data-es="Política chilena (pregrado-programa de intercambio)">Chilean Politics (undergraduate exchange programme)</td>
+        <td style="padding:0.1rem 0 1rem; font-size:0.82rem; font-weight:500; color:var(--ink); text-align:right; white-space:nowrap;">2018–2019</td>
+      </tr>
+
+      <!-- UAI - institution row -->
+      <tr style="border-bottom:none;">
+        <td class="exp-main" style="padding-bottom:0.25rem;">
+          <div class="exp-org" data-en="Universidad Adolfo Ibáñez (UAI)" data-es="Universidad Adolfo Ibáñez">Universidad Adolfo Ibáñez (UAI)</div>
+          <div class="exp-role" data-en="Adjunct Professor, School of Government" data-es="Profesor adjunto, Escuela de Gobierno">Adjunct Professor, School of Government</div>
+        </td>
+        <td class="exp-meta" style="padding-bottom:0.25rem;">
+          <div class="exp-location">Santiago, CL</div>
+        </td>
+      </tr>
+      <!-- UAI - course rows -->
+      <tr style="border-bottom:none;">
+        <td style="padding:0.1rem 0 0.1rem; font-size:0.82rem; color:var(--muted);" data-en="GOB101: Political Thought (undergraduate)" data-es="GOB101: Pensamiento político (pregrado)">GOB101: Political Thought (undergraduate)</td>
+        <td style="padding:0.1rem 0 0.1rem; font-size:0.82rem; font-weight:500; color:var(--ink); text-align:right; white-space:nowrap;">2018</td>
+      </tr>
+      <tr class="exp-row">
+        <td style="padding:0.1rem 0 1rem; font-size:0.82rem; color:var(--muted);" data-en="LITR101: Critical Reading (undergraduate)" data-es="LITR101: Lectura crítica (pregrado)">LITR101: Critical Reading (undergraduate)</td>
+        <td style="padding:0.1rem 0 1rem; font-size:0.82rem; font-weight:500; color:var(--ink); text-align:right; white-space:nowrap;">2014</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p class="research-blurb" style="margin-top:2rem; font-size:0.88rem;" id="teaching-ta" data-en="As an undergraduate, I served as a teaching assistant for the courses Introduction to Political Theory (2007, 2009), Political Development of Central and Eastern Europe (2008), History of Europe in the 20th Century (2007–2009) and External Relations of the European Union (2010)." data-es="Durante mis años de pregrado, fui ayudante de cátedra en los cursos Introducción a la teoría política (2007, 2009), Desarrollo político de Europa Central y Oriental (2008), Historia de Europa siglo XX (2007-2009) y Las relaciones exteriores de la Unión Europea (2010).">As an undergraduate, I served as a teaching assistant for the courses Introduction to Political Theory (2007, 2009), Political Development of Central and Eastern Europe (2008), History of Europe in the 20th Century (2007–2009) and External Relations of the European Union (2010).</p>
+</div>
+
+
 <div id="page-media" class="page">
   <h2 class="page-title" data-en="Media" data-es="Medios">Media</h2>
   <p class="media-intro" data-en="I regularly provide commentary on security, conflict, and global affairs in Chilean and international media, including television, radio, and print outlets." data-es="Ofrezco comentarios con regularidad sobre seguridad, conflicto y asuntos internacionales en medios chilenos e internacionales, incluyendo televisión, radio y prensa escrita.">I regularly provide commentary on security, conflict, and global affairs in Chilean and international media, including television, radio, and print outlets.</p>
@@ -557,7 +626,7 @@
     <h3 class="media-list-title" data-en="Television (selection)" data-es="Televisión (selección)">Television (selection)</h3>
     <div class="media-entry"><span class="media-outlet-inline">CNN Chile.</span> <a href="https://x.com/CNNChile/status/1864420403302572331?s=20" target="_blank">Nuevo Ministerio de Seguridad Pública en Chile</a> · 04/12/2024</div>
     <div class="media-entry"><span class="media-outlet-inline">CHV Noticias.</span> <a href="https://www.dropbox.com/scl/fi/o418lvdygiqqyavluyzm3/chv-noticias.jpeg?rlkey=r1hz8wf9gb6jpi39kn2urlg70&st=g02l35dl&dl=0" target="_blank">Masivas y violentas protestas en Reino Unido</a> · 13/08/2024</div>
-    <div class="media-entry"><span class="media-outlet-inline">CNN Chile.</span> <a href="https://x.com/diesazo/status/1811402127413014951/video/1" target="_blank">Triunfo labourista en las elecciones de Reino Unido</a> · 11/07/2024</div>
+    <div class="media-entry"><span class="media-outlet-inline">CNN Chile.</span> <a href="https://x.com/diesazo/status/1811402127413014951/video/1" target="_blank">Triunfo laborista en las elecciones de Reino Unido</a> · 11/07/2024</div>
     <div class="media-entry"><span class="media-outlet-inline">DW.</span> <a href="https://www.dw.com/es/chile-ya-no-es-un-oasis-ante-el-crimen-organizado/a-69080066" target="_blank">Chile ya no es un oasis ante el crimen organizado</a> · 14/05/2024</div>
     <div class="media-entry"><span class="media-outlet-inline">CNN Chile.</span> <a href="https://youtu.be/IuFIkI7ehAI?t=2450" target="_blank">Elecciones presidenciales en Turquía</a> · 18/05/2023</div>
     <div class="media-entry"><span class="media-outlet-inline">CNN Chile.</span> <a href="https://www.cnnchile.com/programmeas-completos/analisis-momentos-importantes-mundo-2021_20211230/" target="_blank">Los desafíos y tensiones que marcarán el mundo en 2022</a> · 30/12/2021</div>
@@ -585,10 +654,12 @@
   <h2 class="page-title" data-en="Public Engagement" data-es="Divulgación">Public Engagement</h2>
   <p class="media-intro" data-en="Beyond my professional work, academic research, and teaching, I engage in various forms of public outreach. I regularly write short pieces for newspapers, magazines, and online outlets, and occasionally interview leading scholars on their areas of expertise." data-es="Más allá de mi trabajo profesional, investigación académica y docencia, participo en diversas formas de divulgación pública. Escribo regularmente artículos breves para periódicos, revistas y medios digitales, y ocasionalmente entrevisto a destacados académicos sobre sus áreas de especialización.">Beyond my professional work, academic research, and teaching, I engage in various forms of public outreach. I regularly write short pieces for newspapers, magazines, and online outlets, and occasionally interview leading scholars on their areas of expertise.</p>
 
+
+
   <div class="media-list-section">
     <h3 class="media-list-title" data-en="Essays" data-es="Ensayos">Essays</h3>
     <div class="media-entry"><a href="https://terceradosis.cl/2024/03/31/como-nacen-y-mueren-los-enclaves-criminales/" target="_blank">Cómo nacen y mueren los enclaves criminales</a> · <em>Tercera Dosis</em>, 03/2024</div>
-    <div class="media-entry"><a href="https://www.dropbox.com/scl/fi/dmgg2o4zqggmuwu6ofbun/La_Segunda_Explicando_el_auge_criminal_e-1.pdf?rlkey=xva8o9e6pda4bhr0oveazt1x8&st=tpgzduyu&dl=0" target="_blank">Explicando el auge criminal en Chile</span> · <em>La Segunda</em>, 11/2023</div>
+    <div class="media-entry"><a href="https://www.dropbox.com/scl/fi/dmgg2o4zqggmuwu6ofbun/La_Segunda_Explicando_el_auge_criminal_e-1.pdf?rlkey=xva8o9e6pda4bhr0oveazt1x8&st=tpgzduyu&dl=0" target="_blank">Explicando el auge criminal en Chile</a> · <em>La Segunda</em>, 11/2023</div>
     <div class="media-entry"><a href="https://www.dropbox.com/scl/fi/2jeer3v792hz92y0kuo1u/A_New_Pink_Tide_The_Return_of_the_Left_i.pdf?rlkey=ydwywub8wtdahu467bbe0w9t1&st=vmu974hk&dl=0" target="_blank">A New Pink Tide: The Return of the Left in Brazil and Chile</a> (w/ F. Panizza) · <em>Renewal. A Journal of Social Democracy</em>, 07/2023</div>
     <div class="media-entry"><a href="https://www.ciperchile.cl/2021/03/20/la-teoria-del-complot-en-el-estallido-chileno-un-examen-critico/" target="_blank">La teoría del complot en el Estallido chileno: un examen crítico</a> (w/ L. Dammert) · <em>Ciper Chile</em>, 03/2021</div>
     <div class="media-entry"><a href="https://www.dropbox.com/scl/fi/lhwll6vrr1or3o173qff5/Weber_un_siglo_despues-1.pdf?rlkey=tz8z6py3kz2ko5svvr4eb9at2&st=o6mfazis&dl=0" target="_blank">Weber, un siglo después</a> · <em>Revista Santiago</em>, 06/2019</div>
@@ -671,6 +742,11 @@
     updateOpinionTitles(currentLang);
     updateBookProject(currentLang);
     updateResearchExp(currentLang);
+    // Teaching section
+    ['teaching-intro','teaching-ta'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.textContent = el.getAttribute('data-' + currentLang) || el.getAttribute('data-en');
+    });
   }
 
   function updateBookProject(lang) {
