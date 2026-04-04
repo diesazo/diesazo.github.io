@@ -549,11 +549,11 @@
       </tr>
       <!-- PUC - course rows -->
       <tr style="border-bottom:none;">
-        <td style="padding:0.1rem 0 0.1rem; font-size:0.82rem; color:var(--muted);">ICP5710: Contemporary Political Crises (master's)</td>
+        <td style="padding:0.1rem 0 0.1rem; font-size:0.82rem; color:var(--muted);" data-en="ICP5710: Contemporary Political Crises (master's)" data-es="ICP5710: Crisis políticas contemporáneas (magíster)">ICP5710: Contemporary Political Crises (master's)</td>
         <td style="padding:0.1rem 0 0.1rem; font-size:0.82rem; font-weight:500; color:var(--ink); text-align:right; white-space:nowrap;">2019, 2025</td>
       </tr>
       <tr class="exp-row">
-        <td style="padding:0.1rem 0 1rem; font-size:0.82rem; color:var(--muted);">ICP0106: Political Organisation of Chile (undergraduate)</td>
+        <td style="padding:0.1rem 0 1rem; font-size:0.82rem; color:var(--muted);" data-en="ICP0106: Political Organisation of Chile (undergraduate)" data-es="ICP0106: Organización política de Chile (pregrado)">ICP0106: Political Organisation of Chile (undergraduate)</td>
         <td style="padding:0.1rem 0 1rem; font-size:0.82rem; font-weight:500; color:var(--ink); text-align:right; white-space:nowrap;">2018–2019</td>
       </tr>
 
@@ -569,7 +569,7 @@
       </tr>
       <!-- Harvard - course row -->
       <tr class="exp-row">
-        <td style="padding:0.1rem 0 1rem; font-size:0.82rem; color:var(--muted);" data-en="Chilean Politics (undergraduate exchange programme)" data-es="Política chilena (pregrado-programa de intercambio)">Chilean Politics (undergraduate exchange programme)</td>
+        <td style="padding:0.1rem 0 1rem; font-size:0.82rem; color:var(--muted);" data-en="Chilean Politics (undergraduate exchange programme)" data-es="Política chilena (pregrado-programa de intercambio)" data-en="Chilean Politics (undergraduate exchange programme)" data-es="Política chilena (pregrado-programa de intercambio)">Chilean Politics (undergraduate exchange programme)</td>
         <td style="padding:0.1rem 0 1rem; font-size:0.82rem; font-weight:500; color:var(--ink); text-align:right; white-space:nowrap;">2018–2019</td>
       </tr>
 
@@ -585,17 +585,17 @@
       </tr>
       <!-- UAI - course rows -->
       <tr style="border-bottom:none;">
-        <td style="padding:0.1rem 0 0.1rem; font-size:0.82rem; color:var(--muted);" data-en="GOB101: Political Thought (undergraduate)" data-es="GOB101: Pensamiento político (pregrado)">GOB101: Political Thought (undergraduate)</td>
+        <td style="padding:0.1rem 0 0.1rem; font-size:0.82rem; color:var(--muted);" data-en="GOB101: Political Thought (undergraduate)" data-es="GOB101: Pensamiento político (pregrado)" data-en="GOB101: Political Thought (undergraduate)" data-es="GOB101: Pensamiento político (pregrado)">GOB101: Political Thought (undergraduate)</td>
         <td style="padding:0.1rem 0 0.1rem; font-size:0.82rem; font-weight:500; color:var(--ink); text-align:right; white-space:nowrap;">2018</td>
       </tr>
       <tr class="exp-row">
-        <td style="padding:0.1rem 0 1rem; font-size:0.82rem; color:var(--muted);" data-en="LITR101: Critical Reading (undergraduate)" data-es="LITR101: Lectura crítica (pregrado)">LITR101: Critical Reading (undergraduate)</td>
+        <td style="padding:0.1rem 0 1rem; font-size:0.82rem; color:var(--muted);" data-en="LITR101: Critical Reading (undergraduate)" data-es="LITR101: Lectura crítica (pregrado)" data-en="LITR101: Critical Reading (undergraduate)" data-es="LITR101: Lectura crítica (pregrado)">LITR101: Critical Reading (undergraduate)</td>
         <td style="padding:0.1rem 0 1rem; font-size:0.82rem; font-weight:500; color:var(--ink); text-align:right; white-space:nowrap;">2014</td>
       </tr>
     </tbody>
   </table>
 
-  <p class="research-blurb" style="margin-top:2rem; font-size:0.88rem;" id="teaching-ta" data-en="As an undergraduate, I served as a teaching assistant for the courses Introduction to Political Theory (2007, 2009), Political Development of Central and Eastern Europe (2008), History of Europe in the 20th Century (2007–2009) and External Relations of the European Union (2010)." data-es="Durante mis años de pregrado, fui ayudante de cátedra en los cursos Introducción a la teoría política (2007, 2009), Desarrollo político de Europa Central y Oriental (2008), Historia de Europa siglo XX (2007-2009) y Las relaciones exteriores de la Unión Europea (2010).">As an undergraduate, I served as a teaching assistant for the courses Introduction to Political Theory (2007, 2009), Political Development of Central and Eastern Europe (2008), History of Europe in the 20th Century (2007–2009) and External Relations of the European Union (2010).</p>
+  <p class="research-blurb" style="margin-top:2rem; font-size:0.88rem;" id="teaching-ta">As an undergraduate, I served as a teaching assistant for the courses <em>Introduction to Political Theory</em> (2007, 2009), <em>Political Development of Central and Eastern Europe</em> (2008), <em>History of Europe in the 20th Century</em> (2007–2009) and <em>External Relations of the European Union</em> (2010).</p>
 </div>
 
 
@@ -743,10 +743,12 @@
     updateBookProject(currentLang);
     updateResearchExp(currentLang);
     // Teaching section
-    ['teaching-intro','teaching-ta'].forEach(function(id) {
-      var el = document.getElementById(id);
-      if (el) el.textContent = el.getAttribute('data-' + currentLang) || el.getAttribute('data-en');
-    });
+    // teaching-intro (plain text)
+    var ti = document.getElementById('teaching-intro');
+    if (ti) ti.textContent = ti.getAttribute('data-' + currentLang) || ti.getAttribute('data-en');
+    // teaching-ta (has <em> tags, use innerHTML)
+    var ta = document.getElementById('teaching-ta');
+    if (ta) ta.innerHTML = currentLang === 'es' ? 'Durante mis años de pregrado, fui ayudante de cátedra en los cursos <em>Introducción a la teoría política</em> (2007, 2009), <em>Desarrollo político de Europa Central y Oriental</em> (2008), <em>Historia de Europa siglo XX</em> (2007–2009) y <em>Las relaciones exteriores de la Unión Europea</em> (2010).' : 'As an undergraduate, I served as a teaching assistant for the courses <em>Introduction to Political Theory</em> (2007, 2009), <em>Political Development of Central and Eastern Europe</em> (2008), <em>History of Europe in the 20th Century</em> (2007–2009) and <em>External Relations of the European Union</em> (2010).';
   }
 
   function updateBookProject(lang) {
