@@ -285,6 +285,50 @@
   .abstract-body a:hover, .wip-abstract a:hover {
     color: var(--ink);
   }
+
+  /* AUDIO PLAYER */
+  .op-audio-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    padding: 0.6rem 0.9rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #fafafa;
+  }
+  .op-audio-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+  }
+  .op-audio-btn svg { display: block; }
+  .op-audio-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #555;
+    flex: 1;
+  }
+  .op-audio-stop {
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #999;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    flex-shrink: 0;
+  }
+  .op-audio-stop:hover { color: #111; }
 </style>
 </head>
 <body>
@@ -748,6 +792,8 @@
     var ti = document.getElementById('teaching-intro');
     if (ti) ti.textContent = ti.getAttribute('data-' + currentLang) || ti.getAttribute('data-en');
     // teaching-ta (has <em> tags, use innerHTML)
+    // Reset audio label language
+    if (!opAudioPlaying) { var lbl = document.getElementById('op-audio-label'); if (lbl) lbl.textContent = currentLang === 'es' ? 'Escuchar' : 'Listen'; }
     var ta = document.getElementById('teaching-ta');
     if (ta) ta.innerHTML = currentLang === 'es' ? 'Durante mis años de pregrado, fui ayudante de cátedra en los cursos <em>Introducción a la teoría política</em> (2007, 2009), <em>Desarrollo político de Europa Central y Oriental</em> (2008), <em>Historia de Europa siglo XX</em> (2007–2009) y <em>Las relaciones exteriores de la Unión Europea</em> (2010).' : 'As an undergraduate, I served as a teaching assistant for the courses <em>Introduction to Political Theory</em> (2007, 2009), <em>Political Development of Central and Eastern Europe</em> (2008), <em>History of Europe in the 20th Century</em> (2007–2009) and <em>External Relations of the European Union</em> (2010).';
   }
@@ -1087,6 +1133,7 @@
     document.getElementById('op-modal-img').alt = d.title;
     document.getElementById('op-modal-body').innerHTML = isEN && d.body_en ? d.body_en : d.body;
     document.getElementById('op-modal-note').style.display = isEN && d.body_en ? 'block' : 'none';
+    opAudioStop();
     document.getElementById('op-modal').classList.add('open');
     document.body.style.overflow = 'hidden';
   }
@@ -1097,6 +1144,117 @@
   function opCloseOnOverlay(e) {
     if (e.target === document.getElementById('op-modal')) opClose();
   }
+
+  // ── AUDIO PLAYER (MP3 from GitHub) ──────────────────────────────
+  var opAudio = null;
+  var opAudioPlaying = false;
+  
+  var opAudioFiles = {
+    paraderos: 'audio/paraderos.mp3',
+    estallidos: 'audio/estallidos.mp3',
+    caracas: { es: null, en: 'audio/caracas_english.mp3' },
+    izquierda: 'audio/izquierda.mp3',
+    destinos: 'audio/destinos.mp3',
+    legado: 'audio/legado.mp3',
+    negacionistas: 'audio/negacionistas.mp3',
+    resaca: 'audio/resaca.mp3',
+    falacia: 'audio/falacia.mp3',
+    paradoja: 'audio/paradoja.mp3'
+  };
+
+  function opAudioToggle() {
+    if (opAudioPlaying && opAudio) {
+      opAudio.pause();
+      opAudioPlaying = false;
+      opAudioSetIcon('play');
+      document.getElementById('op-audio-label').textContent = currentLang === 'es' ? 'Escuchar' : 'Listen';
+    } else if (opAudio && opAudio.paused) {
+      opAudio.play();
+      opAudioPlaying = true;
+      opAudioSetIcon('pause');
+      document.getElementById('op-audio-label').textContent = currentLang === 'es' ? 'Pausar' : 'Pause';
+    } else {
+      opAudioStart();
+    }
+  }
+
+  function opAudioStart() {
+    var modal = document.getElementById('op-modal');
+    var articleKey = null;
+    for (var key in opArticles) {
+      if (opArticles[key].title === document.getElementById('op-modal-title').textContent ||
+          opArticles[key].title_en === document.getElementById('op-modal-title').textContent) {
+        articleKey = key;
+        break;
+      }
+    }
+    
+    if (!articleKey || !opAudioFiles[articleKey]) {
+      console.log('Audio not available for this article yet');
+      return;
+    }
+    
+    var audioFile = opAudioFiles[articleKey];
+    if (typeof audioFile === 'object') {
+      audioFile = audioFile[currentLang];
+    }
+    if (!audioFile) {
+      console.log('Audio not available for this language');
+      return;
+    }
+    
+    if (opAudio) {
+      opAudio.pause();
+    }
+    
+    opAudio = new Audio(audioFile);
+    opAudio.onended = function() {
+      opAudioReset();
+    };
+    opAudio.onerror = function() {
+      console.error('Audio error:', opAudioFiles[articleKey]);
+      opAudioReset();
+    };
+    opAudio.play();
+    opAudioPlaying = true;
+    opAudioSetIcon('pause');
+    document.getElementById('op-audio-label').textContent = currentLang === 'es' ? 'Pausar' : 'Pause';
+    document.getElementById('op-audio-stop').style.display = 'inline';
+  }
+
+  function opAudioStop() {
+    if (opAudio) {
+      opAudio.pause();
+      opAudio.currentTime = 0;
+    }
+    opAudioReset();
+  }
+
+  function opAudioReset() {
+    opAudioPlaying = false;
+    opAudioSetIcon('play');
+    document.getElementById('op-audio-label').textContent = currentLang === 'es' ? 'Escuchar' : 'Listen';
+    var stopBtn = document.getElementById('op-audio-stop');
+    if (stopBtn) stopBtn.style.display = 'none';
+  }
+
+  function opAudioSetIcon(state) {
+    var icon = document.getElementById('op-audio-icon');
+    if (!icon) return;
+    if (state === 'play') {
+      icon.innerHTML = '<polygon points="4,3 17,10 4,17" fill="#111"/>';
+    } else {
+      icon.innerHTML = '<rect x="4" y="3" width="4" height="14" fill="#111"/><rect x="12" y="3" width="4" height="14" fill="#111"/>';
+    }
+  }
+
+  // Stop audio when modal closes
+  var _origOpClose = opClose;
+  opClose = function() {
+    opAudioStop();
+    _origOpClose();
+  };
+  // ────────────────────────────────────────────────────────────────
 </script>
 <!-- IMAGE LIGHTBOX -->
 <div class="img-lightbox" id="img-lightbox" onclick="closeLightbox()">
@@ -1112,7 +1270,16 @@
     <div class="op-modal-text-col">
       <div class="op-modal-title" id="op-modal-title"></div>
       <div class="op-modal-meta" id="op-modal-meta"></div>
-      <div class="op-modal-body" id="op-modal-body"></div>
+      <div class="op-audio-bar" id="op-audio-bar">
+      <button class="op-audio-btn" id="op-audio-btn" onclick="opAudioToggle()" title="Listen">
+        <svg id="op-audio-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <polygon points="4,3 17,10 4,17" fill="#111"/>
+        </svg>
+      </button>
+      <span class="op-audio-label" id="op-audio-label">Listen</span>
+      <button class="op-audio-stop" id="op-audio-stop" onclick="opAudioStop()" style="display:none;">Stop</button>
+    </div>
+    <div class="op-modal-body" id="op-modal-body"></div>
       <div class="op-modal-note" id="op-modal-note" style="display:none;">* English translation by the author.</div>
     </div>
   </div>
