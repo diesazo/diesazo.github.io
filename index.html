@@ -1139,8 +1139,18 @@
     opAudioStop();
     // Show/hide audio bar based on availability
     var audioEntry = opAudioFiles[key];
-    var hasAudio = audioEntry && (typeof audioEntry === 'string' || audioEntry[currentLang]);
-    document.getElementById('op-audio-bar').style.display = hasAudio ? 'flex' : 'none';
+    var hasAudio = false;
+    if (audioEntry) {
+      if (typeof audioEntry === 'string') {
+        hasAudio = true;
+      } else if (audioEntry[currentLang]) {
+        hasAudio = true;
+      }
+    }
+    var audioBar = document.getElementById('op-audio-bar');
+    if (audioBar) {
+      audioBar.style.display = hasAudio ? 'flex' : 'none';
+    }
     document.getElementById('op-modal').classList.add('open');
     document.body.style.overflow = 'hidden';
   }
@@ -1158,15 +1168,7 @@
   
   var opAudioFiles = {
     paraderos: 'audio/paraderos.mp3',
-    estallidos: 'audio/estallidos.mp3',
-    caracas: { es: null, en: 'audio/caracas_english.mp3' },
-    izquierda: 'audio/izquierda.mp3',
-    destinos: 'audio/destinos.mp3',
-    legado: 'audio/legado.mp3',
-    negacionistas: 'audio/negacionistas.mp3',
-    resaca: 'audio/resaca.mp3',
-    falacia: 'audio/falacia.mp3',
-    paradoja: 'audio/paradoja.mp3'
+    caracas: { es: null, en: 'audio/caracas_english.mp3' }
   };
 
   function opAudioToggle() {
