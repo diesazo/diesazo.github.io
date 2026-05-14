@@ -1163,7 +1163,6 @@
   }
 
   // ── AUDIO PLAYER (MP3 from GitHub) ──────────────────────────────
-  var opAudio = null;
   var opAudioPlaying = false;
   
   var opAudioFiles = {
@@ -1172,13 +1171,14 @@
   };
 
   function opAudioToggle() {
-    if (opAudioPlaying && opAudio) {
-      opAudio.pause();
+    var el = document.getElementById('op-audio-el');
+    if (opAudioPlaying && el) {
+      el.pause();
       opAudioPlaying = false;
       opAudioSetIcon('play');
       document.getElementById('op-audio-label').textContent = currentLang === 'es' ? 'Escuchar' : 'Listen';
-    } else if (opAudio && opAudio.paused) {
-      opAudio.play();
+    } else if (el && el.src && el.paused && el.currentTime > 0) {
+      el.play();
       opAudioPlaying = true;
       opAudioSetIcon('pause');
       document.getElementById('op-audio-label').textContent = currentLang === 'es' ? 'Pausar' : 'Pause';
@@ -1200,29 +1200,32 @@
       return;
     }
     
-    if (opAudio) {
-      opAudio.pause();
+    var el = document.getElementById('op-audio-el');
+    if (!el) return;
+    el.pause();
+    el.src = audioFile;
+    el.load();
+    el.onended = function() { opAudioReset(); };
+    el.onerror = function() { opAudioReset(); };
+    var playPromise = el.play();
+    if (playPromise !== undefined) {
+      playPromise.then(function() {
+        opAudioPlaying = true;
+        opAudioSetIcon('pause');
+        document.getElementById('op-audio-label').textContent = currentLang === 'es' ? 'Pausar' : 'Pause';
+        document.getElementById('op-audio-stop').style.display = 'inline';
+      }).catch(function(err) {
+        console.error('Play failed:', err);
+        opAudioReset();
+      });
     }
-    
-    opAudio = new Audio(audioFile);
-    opAudio.onended = function() {
-      opAudioReset();
-    };
-    opAudio.onerror = function() {
-      console.error('Audio error:', opAudioFiles[articleKey]);
-      opAudioReset();
-    };
-    opAudio.play();
-    opAudioPlaying = true;
-    opAudioSetIcon('pause');
-    document.getElementById('op-audio-label').textContent = currentLang === 'es' ? 'Pausar' : 'Pause';
-    document.getElementById('op-audio-stop').style.display = 'inline';
   }
 
   function opAudioStop() {
-    if (opAudio) {
-      opAudio.pause();
-      opAudio.currentTime = 0;
+    var el = document.getElementById('op-audio-el');
+    if (el) {
+      el.pause();
+      el.currentTime = 0;
     }
     opAudioReset();
   }
@@ -1275,6 +1278,7 @@
       </button>
       <span class="op-audio-label" id="op-audio-label">Listen</span>
       <button class="op-audio-stop" id="op-audio-stop" onclick="opAudioStop()" style="display:none;">Stop</button>
+      <audio id="op-audio-el" preload="none" style="display:none;"></audio>
     </div>
     <div class="op-modal-body" id="op-modal-body"></div>
       <div class="op-modal-note" id="op-modal-note" style="display:none;">* English translation by the author.</div>
