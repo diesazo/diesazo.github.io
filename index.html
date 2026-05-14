@@ -1123,9 +1123,12 @@
     }
   };
 
+  var opCurrentKey = null;
+
   function opOpen(key) {
     const d = opArticles[key];
     if (!d) return;
+    opCurrentKey = key;
     const isEN = currentLang === 'en';
     document.getElementById('op-modal-title').textContent = isEN && d.title_en ? d.title_en : d.title;
     document.getElementById('op-modal-meta').textContent = d.meta;
@@ -1134,6 +1137,10 @@
     document.getElementById('op-modal-body').innerHTML = isEN && d.body_en ? d.body_en : d.body;
     document.getElementById('op-modal-note').style.display = isEN && d.body_en ? 'block' : 'none';
     opAudioStop();
+    // Show/hide audio bar based on availability
+    var audioEntry = opAudioFiles[key];
+    var hasAudio = audioEntry && (typeof audioEntry === 'string' || audioEntry[currentLang]);
+    document.getElementById('op-audio-bar').style.display = hasAudio ? 'flex' : 'none';
     document.getElementById('op-modal').classList.add('open');
     document.body.style.overflow = 'hidden';
   }
@@ -1179,27 +1186,15 @@
   }
 
   function opAudioStart() {
-    var modal = document.getElementById('op-modal');
-    var articleKey = null;
-    for (var key in opArticles) {
-      if (opArticles[key].title === document.getElementById('op-modal-title').textContent ||
-          opArticles[key].title_en === document.getElementById('op-modal-title').textContent) {
-        articleKey = key;
-        break;
-      }
-    }
-    
+    var articleKey = opCurrentKey;
     if (!articleKey || !opAudioFiles[articleKey]) {
-      console.log('Audio not available for this article yet');
       return;
     }
-    
     var audioFile = opAudioFiles[articleKey];
     if (typeof audioFile === 'object') {
       audioFile = audioFile[currentLang];
     }
     if (!audioFile) {
-      console.log('Audio not available for this language');
       return;
     }
     
